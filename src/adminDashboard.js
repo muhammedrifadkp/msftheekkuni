@@ -107,7 +107,7 @@ export function initAdminDashboardPage(containerElement, openPassModalCallback, 
             </div>
           </div>
           <div class="admin-nav-bottom-row">
-            <button id="nav-attendance-btn" class="nav-action-pill attn">🎟️ സമ്മേളനം ഹാജർ (Attendance)</button>
+            <button id="nav-attendance-btn" class="nav-action-pill attn">🎟️ സമ്മേളനം ഹാജർ </button>
             <button id="export-csv-btn" class="nav-action-pill csv">📥 ഡാറ്റ CSV</button>
           </div>
         </header>
