@@ -376,6 +376,9 @@ body.modal-open {
   border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .poster-tagline-box {
@@ -478,7 +481,7 @@ body.modal-open {
   margin: 20px 0 12px;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   padding-bottom: 4px;
   border-bottom: 1px dashed var(--border-color);
 }
@@ -499,6 +502,13 @@ body.modal-open {
   font-size: 0.85rem;
   font-weight: 800;
   color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-field label svg {
+  color: var(--msf-green);
 }
 
 .form-field label span.req {
@@ -547,9 +557,23 @@ select.mobile-input {
   padding: 12px;
   border-radius: var(--radius-sm);
   cursor: pointer;
-  font-weight: 700;
+  font-weight: 800;
   font-size: 0.88rem;
   transition: all 0.2s ease;
+}
+
+.chip-label-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gender-icon.male {
+  color: var(--msf-green);
+}
+
+.gender-icon.female {
+  color: #e91e63;
 }
 
 .radio-chip input[type="radio"] {
@@ -560,8 +584,14 @@ select.mobile-input {
 
 .radio-chip:has(input:checked) {
   border-color: var(--msf-green);
-  background: rgba(0, 128, 55, 0.09);
+  background: rgba(0, 128, 55, 0.1);
   color: var(--msf-green-dark);
+}
+
+.radio-chip.female-chip:has(input:checked) {
+  border-color: #e91e63;
+  background: rgba(233, 30, 99, 0.1);
+  color: #c2185b;
 }
 
 .big-submit-btn {

@@ -38,7 +38,7 @@
       </div>
 
       <div class="hero-eye-logo">
-        <svg class="pulse-eye" viewBox="0 0 120 120" width="70" height="70">
+        <svg class="pulse-eye" viewBox="0 0 120 120" width="75" height="75">
           <circle cx="60" cy="60" r="55" fill="#F24E1E" />
           <path d="M 18 60 Q 60 18 102 60 Q 60 102 18 60 Z" fill="#FFFFFF"/>
           <circle cx="60" cy="60" r="22" fill="#008037"/>
@@ -72,7 +72,8 @@
       <!-- Auto Scroll to Form Button -->
       <div style="margin-top: 18px;">
         <button id="scroll-to-form-btn" class="hero-scroll-btn">
-          ✍️ രജിസ്റ്റർ ചെയ്യാം ↓
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+          രജിസ്റ്റർ ചെയ്യാം
         </button>
       </div>
     </section>
@@ -85,7 +86,8 @@
         <div class="poster-img-wrapper" id="open-poster-btn">
           <img src="/poster.jpg" alt="MSF നോക്യോക്ക് തീക്കുനി ശാഖാ സമ്മേളന പോസ്റ്റർ" class="poster-thumb-img" />
           <div class="poster-overlay-badge">
-            <span>🖼️ പോസ്റ്റർ വലുതായി കാണാൻ ടാപ്പ് ചെയ്യുക</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>പോസ്റ്റർ വലുതായി കാണാൻ ടാപ്പ് ചെയ്യുക</span>
           </div>
         </div>
         <div class="poster-tagline-box">
@@ -97,36 +99,57 @@
       <!-- Registration Form Card -->
       <div class="mobile-card" id="registration-form-section">
         <div class="form-title-bar">
-          <h3>📝 പ്രതിനിധി രജിസ്ട്രേഷൻ</h3>
+          <h3>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            പ്രതിനിധി രജിസ്ട്രേഷൻ
+          </h3>
           <span class="req-notice">* നിർബന്ധമാണ്</span>
         </div>
 
         <form id="delegate-registration-form" novalidate>
           
           <!-- Personal Info -->
-          <div class="section-divider">👤 വ്യക്തിഗത വിവരങ്ങൾ</div>
+          <div class="section-divider">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            വ്യക്തിഗത വിവരങ്ങൾ
+          </div>
           <div class="form-grid-mobile">
             
             <div class="form-field">
-              <label for="name">പൂർണ്ണ നാമം <span class="req">*</span></label>
+              <label for="name">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                പൂർണ്ണ നാമം <span class="req">*</span>
+              </label>
               <input type="text" id="name" class="mobile-input" placeholder="പേര് നൽകുക" required />
             </div>
 
             <div class="form-field">
-              <label for="dob">ജനന തീയതി / വയസ്സ് <span class="req">*</span></label>
+              <label for="dob">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                ജനന തീയതി / വയസ്സ് <span class="req">*</span>
+              </label>
               <input type="text" id="dob" class="mobile-input" placeholder="ഉദാ: 18 വയസ്സ് / 05/10/2007" required />
             </div>
 
             <div class="form-field">
-              <label>Gender <span class="req">*</span></label>
+              <label>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M6 12h12"/></svg>
+                Gender <span class="req">*</span>
+              </label>
               <div class="mobile-radio-flex">
-                <label class="radio-chip">
+                <label class="radio-chip male-chip">
                   <input type="radio" name="gender" value="ആൺ (Male)" checked />
-                  <span>👨‍🎓 ആൺ (Male)</span>
+                  <span class="chip-label-content">
+                    <svg class="gender-icon male" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="14" r="5"/><line x1="19" y1="5" x2="13.6" y2="10.4"/><polyline points="19 10 19 5 14 5"/></svg>
+                    ആൺ (Male)
+                  </span>
                 </label>
-                <label class="radio-chip">
+                <label class="radio-chip female-chip">
                   <input type="radio" name="gender" value="പെൺ (Female)" />
-                  <span>👩‍🎓 പെൺ (Female)</span>
+                  <span class="chip-label-content">
+                    <svg class="gender-icon female" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><line x1="12" y1="14" x2="12" y2="21"/><line x1="9" y1="18" x2="15" y2="18"/></svg>
+                    പെൺ (Female)
+                  </span>
                 </label>
               </div>
             </div>
@@ -134,11 +157,17 @@
           </div>
 
           <!-- Academic Info -->
-          <div class="section-divider">🎓 പഠന വിവരങ്ങൾ</div>
+          <div class="section-divider">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            പഠന വിവരങ്ങൾ
+          </div>
           <div class="form-grid-mobile">
             
             <div class="form-field">
-              <label for="educationClass">ക്ലാസ്സ് / കോഴ്സ് <span class="req">*</span></label>
+              <label for="educationClass">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                ക്ലാസ്സ് / കോഴ്സ് <span class="req">*</span>
+              </label>
               <select id="educationClass" class="mobile-input" required>
                 <option value="">-- തിരെഞ്ഞെടുക്കുക --</option>
                 <option value="High School (8-10)">High School (8, 9, 10)</option>
@@ -151,45 +180,67 @@
             </div>
 
             <div class="form-field">
-              <label for="institution">സ്കൂൾ / കോളേജ് പേര് <span class="req">*</span></label>
+              <label for="institution">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 7l9-4 9 4v14H3V7z"/><path d="M9 21v-4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4"/></svg>
+                സ്കൂൾ / കോളേജ് പേര് <span class="req">*</span>
+              </label>
               <input type="text" id="institution" class="mobile-input" placeholder="പഠിക്കുന്ന സ്ഥാപനം" required />
             </div>
 
           </div>
 
           <!-- Contact Info -->
-          <div class="section-divider">📞 ബന്ധപ്പെടാനുള്ള വിവരങ്ങൾ</div>
+          <div class="section-divider">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            ബന്ധപ്പെടാനുള്ള വിവരങ്ങൾ
+          </div>
           <div class="form-grid-mobile">
             
             <div class="form-field">
-              <label for="mobile">മൊബൈൽ (WhatsApp) <span class="req">*</span></label>
+              <label for="mobile">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#25D366" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                മൊബൈൽ (WhatsApp) <span class="req">*</span>
+              </label>
               <input type="tel" id="mobile" class="mobile-input" placeholder="10 അക്ക മൊബൈൽ നമ്പർ" maxlength="10" required />
             </div>
 
             <div class="form-field">
-              <label for="email">ഈമെയിൽ (Optional)</label>
+              <label for="email">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                ഈമെയിൽ (Optional)
+              </label>
               <input type="email" id="email" class="mobile-input" placeholder="name@gmail.com" />
             </div>
 
             <div class="form-field">
-              <label for="address">മേൽവിലാസം / സ്ഥലം <span class="req">*</span></label>
+              <label for="address">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                മേൽവിലാസം / സ്ഥലം <span class="req">*</span>
+              </label>
               <input type="text" id="address" class="mobile-input" placeholder="വീട്ടുപേരും സ്ഥലവും" required />
             </div>
 
             <div class="form-field">
-              <label for="guardianName">രക്ഷിതാവിന്റെ പേര് <span class="req">*</span></label>
+              <label for="guardianName">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                രക്ഷിതാവിന്റെ പേര് <span class="req">*</span>
+              </label>
               <input type="text" id="guardianName" class="mobile-input" placeholder="Guardian Name" required />
             </div>
 
             <div class="form-field">
-              <label for="guardianMobile">രക്ഷിതാവിന്റെ ഫോൺ <span class="req">*</span></label>
+              <label for="guardianMobile">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                രക്ഷിതാവിന്റെ ഫോൺ <span class="req">*</span>
+              </label>
               <input type="tel" id="guardianMobile" class="mobile-input" placeholder="Guardian Mobile Number" maxlength="10" required />
             </div>
 
           </div>
 
           <button type="submit" id="submit-reg-btn" class="big-submit-btn">
-            ✨ രജിസ്റ്റർ ചെയ്യുക (Submit)
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            രജിസ്റ്റർ ചെയ്യുക (Submit)
           </button>
 
         </form>
@@ -213,10 +264,12 @@
       
       <div class="modal-actions-flex">
         <button id="download-pass-btn" class="btn btn-primary">
-          📥 Digital Pass ഡൗൺലോഡ് (PNG)
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Digital Pass ഡൗൺലോഡ് (PNG)
         </button>
         <button id="share-pass-btn" class="btn btn-success">
-          💬 WhatsApp ഷെയർ
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          WhatsApp ഷെയർ
         </button>
         <button id="close-pass-modal-btn" class="btn btn-secondary">
           ❌ അടയ്ക്കുക
