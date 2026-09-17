@@ -10,6 +10,7 @@ import {
   query, 
   orderBy, 
   deleteDoc, 
+  updateDoc,
   doc, 
   serverTimestamp 
 } from 'firebase/firestore';
@@ -136,6 +137,16 @@ export function listenToRegistrations(onUpdateCallback) {
 export async function deleteRegistration(id) {
   if (isFirebaseActive && db) {
     await deleteDoc(doc(db, 'registrations', id));
+  }
+}
+
+// Update attendance status directly in Cloud Firestore Database
+export async function updateAttendanceStatus(id, attendedStatus) {
+  if (isFirebaseActive && db) {
+    await updateDoc(doc(db, 'registrations', id), {
+      attended: Boolean(attendedStatus),
+      attendedAt: attendedStatus ? new Date().toISOString() : null
+    });
   }
 }
 

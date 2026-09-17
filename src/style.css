@@ -1060,3 +1060,250 @@ select.mobile-input {
   }
 }
 
+/* Event Day Attendance Styles */
+.attn-card-present { background: #e8f5e9 !important; border-color: #a5d6a7 !important; }
+.attn-card-present .m-stat-num { color: #2e7d32 !important; }
+
+.attn-card-absent { background: #fff3e0 !important; border-color: #ffe0b2 !important; }
+.attn-card-absent .m-stat-num { color: #e65100 !important; }
+
+.attn-alert-banner {
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+  animation: fadeIn 0.3s ease;
+}
+.attn-alert-banner.success { background: #e8f5e9; color: #1b5e20; border: 1.5px solid #81c784; }
+.attn-alert-banner.info { background: #e3f2fd; color: #0d47a1; border: 1.5px solid #64b5f6; }
+.attn-alert-banner.warning { background: #fff8e1; color: #f57f17; border: 1.5px solid #ffd54f; }
+.attn-alert-banner.error { background: #ffebee; color: #b71c1c; border: 1.5px solid #e57373; }
+
+.attendance-tools-card {
+  background: white;
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  margin-bottom: 16px;
+}
+
+.attn-mode-tabs {
+  display: flex;
+  gap: 6px;
+  border-bottom: 2px solid #edf5f0;
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+  overflow-x: auto;
+}
+
+.attn-tab-btn {
+  flex: 1;
+  padding: 10px 12px;
+  border: none;
+  background: #f4f8f5;
+  color: var(--text-dark);
+  font-size: 0.82rem;
+  font-weight: 800;
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.attn-tab-btn.active {
+  background: var(--msf-green);
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 128, 55, 0.25);
+}
+
+.pass-code-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pass-input-label {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--text-dark);
+}
+
+.pass-input-row {
+  display: flex;
+  gap: 8px;
+}
+
+.pass-code-input {
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.btn-mark-pass {
+  white-space: nowrap;
+  padding: 12px 18px;
+  font-size: 0.9rem;
+}
+
+.pass-hint {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.qr-scanner-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.qr-reader-element {
+  width: 100%;
+  max-width: 320px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid var(--msf-green);
+  min-height: 200px;
+  background: #111;
+}
+
+.qr-instruction {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 6px;
+}
+
+.attn-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  overflow-x: auto;
+}
+
+.attn-filter-label {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--text-dark);
+}
+
+.attn-filter-chip {
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border-color);
+  background: white;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.attn-filter-chip.active {
+  background: var(--msf-green-dark);
+  color: white;
+  border-color: var(--msf-green-dark);
+}
+
+.attn-delegates-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.attn-item-card {
+  background: white;
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  border: 1.5px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.attn-item-card.is-present {
+  border-left: 5px solid #2e7d32;
+  background: #fbfdfb;
+}
+
+.attn-item-card.is-absent {
+  border-left: 5px solid #e65100;
+}
+
+.attn-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.attn-reg-badge {
+  font-size: 0.78rem;
+  font-weight: 900;
+  background: #e8f5e9;
+  color: var(--msf-green-dark);
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.attn-status-pill {
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 12px;
+}
+
+.pill-present { background: #e8f5e9; color: #2e7d32; }
+.pill-absent { background: #fff3e0; color: #e65100; }
+
+.attn-delegate-name {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: var(--text-dark);
+}
+
+.attn-meta-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.attn-action-row {
+  margin-top: 6px;
+  padding-top: 8px;
+  border-top: 1px solid #edf5f0;
+}
+
+.btn-toggle-attn {
+  width: 100%;
+  padding: 9px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 800;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-mark-present { background: #e8f5e9; color: #1b5e20; }
+.btn-mark-absent { background: #fff3e0; color: #b71c1c; }
+
+.attn-empty-box {
+  text-align: center;
+  padding: 30px;
+  background: white;
+  border-radius: 14px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+

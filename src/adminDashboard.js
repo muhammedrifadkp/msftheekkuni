@@ -2,6 +2,7 @@
 
 import { listenToRegistrations, deleteRegistration, isFirebaseConnected, saveFirebaseConfig, getStoredFirebaseConfig } from './firebase.js';
 import { renderDelegatePass } from './passGenerator.js';
+import { renderEventAttendancePage } from './eventAttendance.js';
 
 let allData = [];
 let filteredData = [];
@@ -96,7 +97,8 @@ export function initAdminDashboardPage(containerElement, openPassModalCallback, 
             <h2>📊 അഡ്മിൻ പാനൽ <span style="font-size:0.75rem; background:#4CAF50; color:#fff; padding:2px 8px; border-radius:10px; font-weight:700;">LIVE 🟢</span></h2>
             <span>തീക്കുനി ശാഖ - നോക്യോക്ക്</span>
           </div>
-          <div style="display:flex; gap:6px;">
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <button id="nav-attendance-btn" class="btn btn-warning btn-sm" style="padding:6px 10px; font-size:0.75rem; background:#FF9800; color:#fff; font-weight:800;">🎟️ ഹാജർ</button>
             <button id="export-csv-btn" class="btn btn-success btn-sm" style="padding:6px 10px; font-size:0.75rem;">📥 CSV</button>
             <button id="logout-btn" class="btn btn-danger btn-sm" style="padding:6px 10px; font-size:0.75rem;">🚪 Logout</button>
             <button id="nav-home-btn" class="btn btn-secondary btn-sm" style="padding:6px 10px; font-size:0.75rem;">🏠 Home</button>
@@ -195,6 +197,10 @@ export function initAdminDashboardPage(containerElement, openPassModalCallback, 
     document.getElementById('logout-btn').addEventListener('click', () => {
       clearSession();
       renderAuthPage();
+    });
+
+    document.getElementById('nav-attendance-btn').addEventListener('click', () => {
+      renderEventAttendancePage(containerElement, allData, loadAndRenderDashboard);
     });
 
     document.getElementById('export-csv-btn').addEventListener('click', exportToCSV);
