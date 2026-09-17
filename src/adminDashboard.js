@@ -1,4 +1,4 @@
-// Organizers Admin Dashboard - Mobile First & 7-Day Session Persistence
+// Organizers Admin Dashboard - Mobile & Desktop Responsive with Centered Auth
 
 import { fetchAllRegistrations, deleteRegistration, isFirebaseConnected, saveFirebaseConfig, getStoredFirebaseConfig } from './firebase.js';
 import { renderDelegatePass } from './passGenerator.js';
@@ -42,22 +42,23 @@ export function initAdminDashboardPage(containerElement, openPassModalCallback, 
 
   const renderAuthPage = () => {
     containerElement.innerHTML = `
-      <div class="admin-mobile-app">
-        <div class="modal-dialog-card full-page-auth">
-          <div class="auth-header" style="text-align:center; margin-bottom:18px;">
-            <div class="auth-icon" style="font-size:2.2rem; margin-bottom:8px;">🔐</div>
-            <h2 style="font-size:1.2rem; color:var(--msf-green-dark); font-weight:900;">MSF തീക്കുനി ശാഖ</h2>
-            <h3 style="font-size:0.95rem; color:var(--nokyokkk-orange); font-weight:800;">അഡ്മിൻ പോർട്ടൽ</h3>
+      <div class="admin-auth-wrapper">
+        <div class="admin-auth-card">
+          <div class="auth-header">
+            <div class="auth-icon-circle">🔐</div>
+            <h2 class="auth-title">MSF തീക്കുനി ശാഖ</h2>
+            <h3 class="auth-subtitle">ഭാരവാഹികളുടെ അഡ്മിൻ പോർട്ടൽ</h3>
+            <p class="auth-desc">രജിസ്ട്രേഷൻ വിവരങ്ങൾ പരിശോധിക്കാൻ പാസ്‌വേഡ് നൽകുക</p>
           </div>
           <form id="admin-login-form" class="auth-form">
-            <div class="form-field" style="margin-bottom:12px;">
+            <div class="form-field" style="text-align:left; margin-bottom:16px;">
               <label for="admin-pass">അഡ്മിൻ പാസ്‌വേഡ്</label>
               <input type="password" id="admin-pass" class="mobile-input" placeholder="Password നൽകുക" required autofocus />
             </div>
-            <div id="auth-error" class="auth-error hidden">തെറ്റായ പാസ്‌വേഡ്!</div>
-            <div class="modal-actions-flex" style="margin-top:16px;">
+            <div id="auth-error" class="auth-error hidden">തെറ്റായ പാസ്‌വേഡ്! ദയവായി വീണ്ടും ശ്രമിക്കുക.</div>
+            <div class="auth-actions-stack">
               <button type="submit" class="btn btn-primary">പ്രവേശിക്കുക (Login)</button>
-              <button type="button" class="btn btn-secondary" id="back-to-home-btn">🏠 ഹോം പേജ്</button>
+              <button type="button" class="btn btn-secondary" id="back-to-home-btn">🏠 ഹോം പേജിലേക്ക് (Home)</button>
             </div>
           </form>
         </div>
