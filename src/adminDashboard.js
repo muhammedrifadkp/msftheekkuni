@@ -93,15 +93,22 @@ export function initAdminDashboardPage(containerElement, openPassModalCallback, 
     containerElement.innerHTML = `
       <div class="admin-mobile-app">
         <header class="admin-mobile-navbar">
-          <div class="admin-title-group">
-            <h2>📊 അഡ്മിൻ <span class="admin-live-badge">LIVE 🟢</span></h2>
-            <span>തീക്കുനി ശാഖ</span>
+          <div class="admin-nav-top-row">
+            <div class="admin-title-group">
+              <div class="admin-title-main">
+                <h2>📊 അഡ്മിൻ പാനൽ</h2>
+                <span class="admin-live-badge">LIVE 🟢</span>
+              </div>
+              <span class="admin-sub-text">തീക്കുനി ശാഖ - നോക്യോക്ക്</span>
+            </div>
+            <div class="admin-top-icons">
+              <button id="nav-home-btn" class="nav-icon-btn" title="Home Page">🏠</button>
+              <button id="logout-btn" class="nav-icon-btn logout" title="Logout">🚪</button>
+            </div>
           </div>
-          <div class="admin-nav-actions">
-            <button id="nav-attendance-btn" class="nav-chip-btn nav-chip-attn">🎟️ ഹാജർ</button>
-            <button id="export-csv-btn" class="nav-chip-btn nav-chip-csv">📥 CSV</button>
-            <button id="nav-home-btn" class="nav-chip-btn nav-chip-home">🏠 Home</button>
-            <button id="logout-btn" class="nav-chip-btn nav-chip-logout" title="Logout">🚪</button>
+          <div class="admin-nav-bottom-row">
+            <button id="nav-attendance-btn" class="nav-action-pill attn">🎟️ സമ്മേളനം ഹാജർ (Attendance)</button>
+            <button id="export-csv-btn" class="nav-action-pill csv">📥 ഡാറ്റ CSV</button>
           </div>
         </header>
 
