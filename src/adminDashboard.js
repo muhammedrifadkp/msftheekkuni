@@ -1,10 +1,12 @@
-// Organizers Admin Dashboard - Mobile & Desktop Responsive with Centered Auth
+// Organizers Admin Dashboard - Mobile First & Real-time WebSockets
 
-import { fetchAllRegistrations, deleteRegistration, isFirebaseConnected, saveFirebaseConfig, getStoredFirebaseConfig } from './firebase.js';
+import { listenToRegistrations, deleteRegistration, isFirebaseConnected, saveFirebaseConfig, getStoredFirebaseConfig } from './firebase.js';
 import { renderDelegatePass } from './passGenerator.js';
 
 let allData = [];
 let filteredData = [];
+let unsubscribeListener = null;
+
 const DEFAULT_PASSCODE = 'msftheekkuni2026';
 const ADMIN_AUTH_KEY = 'msf_theekkuni_admin_session_v1';
 const ONE_WEEK_MS = 7 * 24 * 60 * 60 * 1000; // 7 Days in Milliseconds
@@ -41,6 +43,11 @@ function clearSession() {
 export function initAdminDashboardPage(containerElement, openPassModalCallback, navigateHomeCallback) {
 
   const renderAuthPage = () => {
+    if (unsubscribeListener) {
+      unsubscribeListener();
+      unsubscribeListener = null;
+    }
+
     containerElement.innerHTML = `
       <div class="admin-auth-wrapper">
         <div class="admin-auth-card">
@@ -86,7 +93,7 @@ export function initAdminDashboardPage(containerElement, openPassModalCallback, 
       <div class="admin-mobile-app">
         <header class="admin-mobile-navbar">
           <div class="admin-title-group">
-            <h2>📊 അഡ്മിൻ പാനൽ</h2>
+            <h2>📊 അഡ്മിൻ പാനൽ <span style="font-size:0.75rem; background:#4CAF50; color:#fff; padding:2px 8px; border-radius:10px; font-weight:700;">LIVE 🟢</span></h2>
             <span>തീക്കുനി ശാഖ - നോക്യോക്ക്</span>
           </div>
           <div style="display:flex; gap:6px;">
@@ -152,7 +159,7 @@ export function initAdminDashboardPage(containerElement, openPassModalCallback, 
 
           <!-- Mobile Card List View -->
           <div id="mobile-cards-container" class="delegate-cards-list">
-            <div style="text-align:center; padding:20px; color:var(--text-muted);">വിവരങ്ങൾ ലോഡ് ചെയ്യുന്നു...</div>
+            <div style="text-align:center; padding:20px; color:var(--text-muted);">വിവരങ്ങൾ തത്സമയം നിരീക്ഷിക്കുന്നു (Live Realtime)...</div>
           </div>
 
           <!-- Desktop Table View -->
@@ -193,12 +200,12 @@ export function initAdminDashboardPage(containerElement, openPassModalCallback, 
     document.getElementById('gender-filter').addEventListener('change', applyFilters);
     document.getElementById('class-filter').addEventListener('change', applyFilters);
 
-    await refreshData();
-  };
-
-  const refreshData = async () => {
-    allData = await fetchAllRegistrations();
-    applyFilters();
+    // Subscribe to Realtime WebSocket listener!
+    if (unsubscribeListener) unsubscribeListener();
+    unsubscribeListener = listenToRegistrations((freshData) => {
+      allData = freshData;
+      applyFilters();
+    });
   };
 
   const applyFilters = () => {
@@ -313,7 +320,6 @@ export function initAdminDashboardPage(containerElement, openPassModalCallback, 
         const id = btn.getAttribute('data-id');
         if (confirm('ഈ രജിസ്ട്രേഷൻ വിവരങ്ങൾ മായ്ക്കണമെന്ന് ഉറപ്പാണോ?')) {
           await deleteRegistration(id);
-          await refreshData();
         }
       });
     });

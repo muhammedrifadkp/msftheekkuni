@@ -1,4 +1,4 @@
-// Firebase Integration with automated fallback to browser LocalStorage
+// Firebase Integration with Firestore Realtime Listeners and LocalStorage Fallback
 
 import { initializeApp } from 'firebase/app';
 import { 
@@ -6,6 +6,7 @@ import {
   collection, 
   addDoc, 
   getDocs, 
+  onSnapshot,
   query, 
   orderBy, 
   deleteDoc, 
@@ -59,7 +60,7 @@ export function initFirebase(config) {
     app = initializeApp(config);
     db = getFirestore(app);
     isFirebaseActive = true;
-    console.log('Firebase Firestore connected successfully!');
+    console.log('Firebase Firestore connected with Realtime WebSockets!');
     return true;
   } catch (err) {
     console.error('Firebase init error:', err);
@@ -75,7 +76,7 @@ if (activeConfig && activeConfig.apiKey) {
 }
 
 // Timeout helper so calls NEVER hang indefinitely if Firestore rules block or network delays
-function withTimeout(promise, ms = 3000) {
+function withTimeout(promise, ms = 3500) {
   return new Promise((resolve, reject) => {
     const timer = setTimeout(() => {
       reject(new Error(`Operation timed out after ${ms}ms`));
@@ -112,7 +113,7 @@ export async function saveRegistration(registrationData) {
         createdServerTime: serverTimestamp()
       });
       
-      // Wait max 3 seconds for Firebase, otherwise fallback to local
+      // Wait max 3.5 seconds for Firebase, otherwise fallback to local
       const docRef = await withTimeout(docRefPromise, 3500);
       record.id = docRef.id;
       saveToLocalStorage(record);
@@ -130,7 +131,6 @@ export async function saveRegistration(registrationData) {
 
 function saveToLocalStorage(record) {
   const existing = getLocalRegistrations();
-  // Prevent duplicate if already added
   if (!existing.some(item => item.regId === record.regId)) {
     existing.unshift(record);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(existing));
@@ -146,7 +146,7 @@ function getLocalRegistrations() {
   }
 }
 
-// Helper to fetch all registrations
+// Helper to fetch all registrations once
 export async function fetchAllRegistrations() {
   if (isFirebaseActive && db) {
     try {
@@ -156,7 +156,6 @@ export async function fetchAllRegistrations() {
       snapshot.forEach(docSnap => {
         list.push({ id: docSnap.id, ...docSnap.data() });
       });
-      // Merge with local items if any
       const localItems = getLocalRegistrations();
       localItems.forEach(item => {
         if (!list.some(l => l.regId === item.regId)) {
@@ -172,6 +171,36 @@ export async function fetchAllRegistrations() {
   return getLocalRegistrations();
 }
 
+// Real-Time WebSocket Listener: Pushes new registrations instantly to Admin Dashboard
+export function listenToRegistrations(onUpdateCallback) {
+  if (isFirebaseActive && db) {
+    try {
+      const q = query(collection(db, 'registrations'), orderBy('createdServerTime', 'desc'));
+      return onSnapshot(q, (snapshot) => {
+        const list = [];
+        snapshot.forEach(docSnap => {
+          list.push({ id: docSnap.id, ...docSnap.data() });
+        });
+        const localItems = getLocalRegistrations();
+        localItems.forEach(item => {
+          if (!list.some(l => l.regId === item.regId)) {
+            list.push(item);
+          }
+        });
+        onUpdateCallback(list);
+      }, (err) => {
+        console.warn('Realtime listener fallback to static:', err);
+        onUpdateCallback(getLocalRegistrations());
+      });
+    } catch (err) {
+      console.warn('Realtime listener init error:', err);
+    }
+  }
+
+  onUpdateCallback(getLocalRegistrations());
+  return () => {};
+}
+
 // Helper to delete registration
 export async function deleteRegistration(id) {
   if (isFirebaseActive && db && !id.startsWith('local_')) {
@@ -182,7 +211,6 @@ export async function deleteRegistration(id) {
     }
   }
 
-  // Also remove from local storage
   const list = getLocalRegistrations().filter(item => item.id !== id);
   localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
 }
