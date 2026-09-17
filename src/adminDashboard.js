@@ -94,14 +94,14 @@ export function initAdminDashboardPage(containerElement, openPassModalCallback, 
       <div class="admin-mobile-app">
         <header class="admin-mobile-navbar">
           <div class="admin-title-group">
-            <h2>📊 അഡ്മിൻ പാനൽ <span style="font-size:0.75rem; background:#4CAF50; color:#fff; padding:2px 8px; border-radius:10px; font-weight:700;">LIVE 🟢</span></h2>
-            <span>തീക്കുനി ശാഖ - നോക്യോക്ക്</span>
+            <h2>📊 അഡ്മിൻ <span class="admin-live-badge">LIVE 🟢</span></h2>
+            <span>തീക്കുനി ശാഖ</span>
           </div>
-          <div style="display:flex; gap:6px; flex-wrap:wrap;">
-            <button id="nav-attendance-btn" class="btn btn-warning btn-sm" style="padding:6px 10px; font-size:0.75rem; background:#FF9800; color:#fff; font-weight:800;">🎟️ ഹാജർ</button>
-            <button id="export-csv-btn" class="btn btn-success btn-sm" style="padding:6px 10px; font-size:0.75rem;">📥 CSV</button>
-            <button id="logout-btn" class="btn btn-danger btn-sm" style="padding:6px 10px; font-size:0.75rem;">🚪 Logout</button>
-            <button id="nav-home-btn" class="btn btn-secondary btn-sm" style="padding:6px 10px; font-size:0.75rem;">🏠 Home</button>
+          <div class="admin-nav-actions">
+            <button id="nav-attendance-btn" class="nav-chip-btn nav-chip-attn">🎟️ ഹാജർ</button>
+            <button id="export-csv-btn" class="nav-chip-btn nav-chip-csv">📥 CSV</button>
+            <button id="nav-home-btn" class="nav-chip-btn nav-chip-home">🏠 Home</button>
+            <button id="logout-btn" class="nav-chip-btn nav-chip-logout" title="Logout">🚪</button>
           </div>
         </header>
 

@@ -23,12 +23,12 @@ export function renderEventAttendancePage(containerElement, allRegistrations, ba
     <div class="admin-mobile-app attendance-app">
       <header class="admin-mobile-navbar attendance-navbar">
         <div class="admin-title-group">
-          <h2>🎟️ സമ്മേളന ഹാജർ (Attendance)</h2>
+          <h2>🎟️ സമ്മേളന ഹാജർ</h2>
           <span>2026 സെപ്റ്റംബർ 20 - തീക്കുനി ശാഖ</span>
         </div>
-        <div style="display:flex; gap:6px;">
-          <button id="attn-export-csv-btn" class="btn btn-success btn-sm" style="padding:6px 10px; font-size:0.75rem;">📥 CSV</button>
-          <button id="attn-back-btn" class="btn btn-secondary btn-sm" style="padding:6px 10px; font-size:0.75rem;">🔙 അഡ്മിൻ ബോർഡ്</button>
+        <div class="admin-nav-actions">
+          <button id="attn-export-csv-btn" class="nav-chip-btn nav-chip-csv">📥 CSV</button>
+          <button id="attn-back-btn" class="nav-chip-btn nav-chip-home">🔙 ബോർഡ്</button>
         </div>
       </header>
 

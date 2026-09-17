@@ -833,28 +833,103 @@ select.mobile-input {
 }
 
 .admin-mobile-navbar {
-  background: var(--msf-green-dark);
+  background: linear-gradient(135deg, #004d25 0%, #006834 100%);
   color: white;
-  padding: 14px 16px;
+  padding: 10px 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: sticky;
   top: 0;
   z-index: 100;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border-bottom: 2.5px solid var(--accent-gold);
+}
+
+.admin-title-group {
+  display: flex;
+  flex-direction: column;
 }
 
 .admin-title-group h2 {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 900;
   color: white;
   line-height: 1.1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.admin-live-badge {
+  font-size: 0.65rem;
+  background: rgba(76, 175, 80, 0.25);
+  color: #81c784;
+  border: 1px solid #4CAF50;
+  padding: 2px 6px;
+  border-radius: 12px;
+  font-weight: 800;
+  white-space: nowrap;
 }
 
 .admin-title-group span {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: var(--accent-gold);
   font-weight: 700;
+  opacity: 0.9;
+}
+
+.admin-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-chip-btn {
+  width: auto !important; /* Override .btn width: 100% */
+  padding: 6px 11px;
+  border-radius: 20px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  border: none;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+.nav-chip-btn:active {
+  transform: scale(0.94);
+}
+
+.nav-chip-attn {
+  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(255, 152, 0, 0.35);
+}
+
+.nav-chip-csv {
+  background: rgba(255, 255, 255, 0.18);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(4px);
+}
+
+.nav-chip-home {
+  background: rgba(255, 255, 255, 0.18);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(4px);
+}
+
+.nav-chip-logout {
+  background: rgba(239, 83, 80, 0.25);
+  color: #ffcdd2;
+  border: 1px solid rgba(239, 83, 80, 0.4);
+  padding: 6px 9px;
 }
 
 .admin-mobile-content {
