@@ -48,6 +48,20 @@ body.modal-open {
   display: none !important;
 }
 
+/* User Friendly Error Shake Animation */
+.input-error-shake {
+  border-color: #d32f2f !important;
+  background-color: #fff8f8 !important;
+  box-shadow: 0 0 0 4px rgba(211, 47, 47, 0.25) !important;
+  animation: shakeInput 0.4s ease-in-out;
+}
+
+@keyframes shakeInput {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
 /* Centered Admin Auth Page Screen */
 .admin-auth-wrapper {
   min-height: 100vh;

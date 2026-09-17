@@ -1,4 +1,4 @@
-// Main Application Logic - Mobile First & Auto Scroll to Form
+// Main Application Logic - Mobile First & Smart Auto-Focus Validation
 
 import confetti from 'canvas-confetti';
 import { saveRegistration } from './firebase.js';
@@ -116,9 +116,43 @@ document.addEventListener('DOMContentLoaded', () => {
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  // Registration Form Submission Handler
+  // Smart User-Friendly Form Submission & Scroll-To-Error Validation
   regForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    const requiredFields = [
+      { id: 'name', name: 'പൂർണ്ണ നാമം' },
+      { id: 'dob', name: 'ജനന തീയതി / വയസ്സ്' },
+      { id: 'educationClass', name: 'ക്ലാസ്സ് / കോഴ്സ്' },
+      { id: 'institution', name: 'സ്കൂൾ / കോളേജ് പേര്' },
+      { id: 'mobile', name: 'മൊബൈൽ നമ്പർ', isPhone: true },
+      { id: 'address', name: 'മേൽവിലാസം / സ്ഥലം' },
+      { id: 'guardianName', name: 'രക്ഷിതാവിന്റെ പേര്' },
+      { id: 'guardianMobile', name: 'രക്ഷിതാവിന്റെ ഫോൺ', isPhone: true }
+    ];
+
+    // Find the first invalid field
+    for (const field of requiredFields) {
+      const el = document.getElementById(field.id);
+      const val = el ? el.value.trim() : '';
+
+      if (!val) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        el.focus();
+        el.classList.add('input-error-shake');
+        setTimeout(() => el.classList.remove('input-error-shake'), 1200);
+        return;
+      }
+
+      if (field.isPhone && !/^\d{10}$/.test(val)) {
+        alert(`ദയവായി ${field.name} സാധുവായ 10 അക്ക ഫോൺ നമ്പറായി നൽകുക!`);
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        el.focus();
+        el.classList.add('input-error-shake');
+        setTimeout(() => el.classList.remove('input-error-shake'), 1200);
+        return;
+      }
+    }
 
     const name = document.getElementById('name').value.trim();
     const dob = document.getElementById('dob').value.trim();
@@ -130,22 +164,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const address = document.getElementById('address').value.trim();
     const guardianName = document.getElementById('guardianName').value.trim();
     const guardianMobile = document.getElementById('guardianMobile').value.trim();
-
-    // Validation
-    if (!name || !dob || !educationClass || !institution || !mobile || !address || !guardianName || !guardianMobile) {
-      alert('ദയവായി നിർബന്ധമായ എല്ലാ വിവരങ്ങളും പൂരിപ്പിക്കുക!');
-      return;
-    }
-
-    if (!/^\d{10}$/.test(mobile)) {
-      alert('ദയവായി സാധുവായ 10 അക്ക മൊബൈൽ നമ്പർ നൽകുക!');
-      return;
-    }
-
-    if (!/^\d{10}$/.test(guardianMobile)) {
-      alert('ദയവായി രക്ഷിതാവിന്റെ സാധുവായ 10 അക്ക ഫോൺ നമ്പർ നൽകുക!');
-      return;
-    }
 
     const submitBtn = document.getElementById('submit-reg-btn');
     submitBtn.disabled = true;
