@@ -2,7 +2,7 @@
 
 import confetti from 'canvas-confetti';
 import { saveRegistration } from './firebase.js';
-import { renderDelegatePass, downloadPassAsImage, sharePassOnWhatsApp } from './passGenerator.js';
+import { renderDelegatePass, downloadPassAsImage } from './passGenerator.js';
 import { initAdminDashboardPage } from './adminDashboard.js';
 
 let currentRegisteredData = null;
@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const regForm = document.getElementById('delegate-registration-form');
   const downloadBtn = document.getElementById('download-pass-btn');
-  const shareBtn = document.getElementById('share-pass-btn');
   const closePassModalBtn = document.getElementById('close-pass-modal-btn');
 
   const openPosterBtn = document.getElementById('open-poster-btn');
@@ -236,12 +235,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const cleanName = currentRegisteredData.name ? currentRegisteredData.name.replace(/\s+/g, '_') : 'Delegate';
       await downloadPassAsImage(cardEl, `MSF_Theekkuni_Pass_${cleanName}.png`);
       downloadBtn.innerText = '📥 Digital Pass ഡൗൺലോഡ് (PNG)';
-    }
-  });
-
-  shareBtn.addEventListener('click', () => {
-    if (currentRegisteredData) {
-      sharePassOnWhatsApp(currentRegisteredData);
     }
   });
 });
