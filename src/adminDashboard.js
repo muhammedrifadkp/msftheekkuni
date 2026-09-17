@@ -8,11 +8,11 @@ let allData = [];
 let filteredData = [];
 let unsubscribeListener = null;
 
-const DEFAULT_PASSCODE = 'msftheekkuni2026';
+export const DEFAULT_PASSCODE = 'msftheekkuni2026';
 const ADMIN_AUTH_KEY = 'msf_theekkuni_admin_session_v1';
 const ONE_WEEK_MS = 7 * 24 * 60 * 60 * 1000; // 7 Days in Milliseconds
 
-function isSessionValid() {
+export function isSessionValid() {
   try {
     const raw = localStorage.getItem(ADMIN_AUTH_KEY);
     if (!raw) return false;
@@ -29,7 +29,7 @@ function isSessionValid() {
   }
 }
 
-function createSession() {
+export function createSession() {
   const sessionData = {
     loginTime: Date.now(),
     authenticated: true
@@ -37,11 +37,11 @@ function createSession() {
   localStorage.setItem(ADMIN_AUTH_KEY, JSON.stringify(sessionData));
 }
 
-function clearSession() {
+export function clearSession() {
   localStorage.removeItem(ADMIN_AUTH_KEY);
 }
 
-export function initAdminDashboardPage(containerElement, openPassModalCallback, navigateHomeCallback) {
+export function initAdminDashboardPage(containerElement, openPassModalCallback, navigateHomeCallback, navigateAttendanceCallback) {
 
   const renderAuthPage = () => {
     if (unsubscribeListener) {
@@ -207,7 +207,11 @@ export function initAdminDashboardPage(containerElement, openPassModalCallback, 
     });
 
     document.getElementById('nav-attendance-btn').addEventListener('click', () => {
-      renderEventAttendancePage(containerElement, allData, loadAndRenderDashboard);
+      if (navigateAttendanceCallback) {
+        navigateAttendanceCallback();
+      } else {
+        renderEventAttendancePage(containerElement, allData, loadAndRenderDashboard);
+      }
     });
 
     document.getElementById('export-csv-btn').addEventListener('click', exportToCSV);

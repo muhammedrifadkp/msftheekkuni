@@ -1,6 +1,7 @@
 // Event Day Attendance Module - MSF Theekkuni
 import { Html5Qrcode } from 'html5-qrcode';
-import { updateAttendanceStatus } from './firebase.js';
+import { updateAttendanceStatus, listenToRegistrations } from './firebase.js';
+import { isSessionValid, createSession, DEFAULT_PASSCODE } from './adminDashboard.js';
 
 let html5QrcodeScanner = null;
 let isScanning = false;
@@ -518,4 +519,71 @@ export function renderEventAttendancePage(containerElement, allRegistrations, ba
 
   // Initial Render
   renderDelegatesList();
+}
+
+export function initAttendancePageController(containerElement, navigateDashboardCallback, navigateHomeCallback) {
+  let unsubscribeListener = null;
+
+  const renderAuthPage = () => {
+    if (unsubscribeListener) {
+      unsubscribeListener();
+      unsubscribeListener = null;
+    }
+
+    containerElement.innerHTML = `
+      <div class="admin-auth-wrapper">
+        <div class="admin-auth-card">
+          <div class="auth-header">
+            <div class="auth-icon-circle">🎟️</div>
+            <h2 class="auth-title">MSF തീക്കുനി ശാഖ</h2>
+            <h3 class="auth-subtitle">സമ്മേളനം ഹാജർ പോർട്ടൽ</h3>
+            <p class="auth-desc">ഹാജർ രേഖപ്പെടുത്താൻ പാസ്‌വേഡ് നൽകുക</p>
+          </div>
+          <form id="attn-login-form" class="auth-form">
+            <div class="form-field" style="text-align:left; margin-bottom:16px;">
+              <label for="attn-pass">അഡ്മിൻ പാസ്‌വേഡ്</label>
+              <input type="password" id="attn-pass" class="mobile-input" placeholder="Password നൽകുക" required autofocus />
+            </div>
+            <div id="attn-auth-error" class="auth-error hidden">തെറ്റായ പാസ്‌വേഡ്! ദയവായി വീണ്ടും ശ്രമിക്കുക.</div>
+            <div class="auth-actions-stack">
+              <button type="submit" class="btn btn-primary">പ്രവേശിക്കുക (Login)</button>
+              <button type="button" class="btn btn-secondary" id="attn-home-btn">🏠 ഹോം പേജിലേക്ക് (Home)</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    `;
+
+    document.getElementById('attn-home-btn').addEventListener('click', () => {
+      navigateHomeCallback();
+    });
+
+    document.getElementById('attn-login-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const inputPass = document.getElementById('attn-pass').value.trim();
+      if (inputPass === DEFAULT_PASSCODE) {
+        createSession();
+        loadAndRenderAttendance();
+      } else {
+        document.getElementById('attn-auth-error').classList.remove('hidden');
+      }
+    });
+  };
+
+  const loadAndRenderAttendance = () => {
+    if (unsubscribeListener) unsubscribeListener();
+    unsubscribeListener = listenToRegistrations((freshData) => {
+      renderEventAttendancePage(containerElement, freshData, navigateDashboardCallback);
+    });
+  };
+
+  return {
+    render: () => {
+      if (isSessionValid()) {
+        loadAndRenderAttendance();
+      } else {
+        renderAuthPage();
+      }
+    }
+  };
 }

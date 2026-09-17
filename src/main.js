@@ -4,6 +4,7 @@ import confetti from 'canvas-confetti';
 import { saveRegistration } from './firebase.js';
 import { renderDelegatePass, downloadPassAsImage } from './passGenerator.js';
 import { initAdminDashboardPage } from './adminDashboard.js';
+import { initAttendancePageController } from './eventAttendance.js';
 
 let currentRegisteredData = null;
 
@@ -11,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Views & Modals
   const publicView = document.getElementById('public-view');
   const adminView = document.getElementById('admin-view');
+  const attendanceView = document.getElementById('attendance-view');
   const passModal = document.getElementById('pass-modal');
   const passRenderContainer = document.getElementById('pass-card-render-container');
   const posterModal = document.getElementById('poster-modal');
@@ -31,17 +33,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Router logic - hidden from public navigation, accessible via URL /admin or #admin
+  // Router logic - hidden from public navigation, accessible via URL /admin, /attendance, etc.
   const handleRouting = () => {
     const path = window.location.pathname;
     const hash = window.location.hash;
 
-    if (path.includes('/admin') || hash === '#admin') {
+    if (path.includes('/attendance') || hash === '#attendance') {
       publicView.classList.add('hidden');
+      adminView.classList.add('hidden');
+      attendanceView.classList.remove('hidden');
+      attendancePageController.render();
+    } else if (path.includes('/admin') || hash === '#admin') {
+      publicView.classList.add('hidden');
+      attendanceView.classList.add('hidden');
       adminView.classList.remove('hidden');
       adminDashboard.render();
     } else {
       adminView.classList.add('hidden');
+      attendanceView.classList.add('hidden');
       publicView.classList.remove('hidden');
     }
   };
@@ -57,6 +66,20 @@ document.addEventListener('DOMContentLoaded', () => {
     (delegateItem) => {
       currentRegisteredData = delegateItem;
       openPassModal(delegateItem);
+    },
+    () => {
+      navigateTo('/', '');
+    },
+    () => {
+      navigateTo('/attendance', '#attendance');
+    }
+  );
+
+  // Initialize Attendance Page Controller for Full Dedicated Page
+  const attendancePageController = initAttendancePageController(
+    attendanceView,
+    () => {
+      navigateTo('/admin', '#admin');
     },
     () => {
       navigateTo('/', '');
