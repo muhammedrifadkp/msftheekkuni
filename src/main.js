@@ -153,9 +153,22 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    // Check Gender Selection
+    const selectedGenderEl = document.querySelector('input[name="gender"]:checked');
+    if (!selectedGenderEl) {
+      const radioContainer = document.querySelector('.mobile-radio-flex');
+      if (radioContainer) {
+        radioContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        radioContainer.classList.add('input-error-shake');
+        setTimeout(() => radioContainer.classList.remove('input-error-shake'), 1200);
+      }
+      alert('ദയവായി Gender തിരഞ്ഞെടുക്കുക (ആൺ / പെൺ)!');
+      return;
+    }
+
     const name = document.getElementById('name').value.trim();
     const dob = document.getElementById('dob').value.trim();
-    const gender = document.querySelector('input[name="gender"]:checked')?.value || 'ആൺ (Male)';
+    const gender = selectedGenderEl.value;
     const educationClass = document.getElementById('educationClass').value;
     const institution = document.getElementById('institution').value.trim();
     const mobile = document.getElementById('mobile').value.trim();
