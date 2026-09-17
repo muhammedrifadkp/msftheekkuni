@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>MSF നോക്യോക്ക് - തീക്കുനി ശാഖാ സമ്മേളനം</title>
+  <meta name="description" content="MSF നോക്യോക്ക് തീക്കുനി ശാഖാ സമ്മേളന ഡിജിറ്റൽ പാസ്സ് & രജിസ്ട്രേഷൻ" />
+  <link rel="stylesheet" href="./src/style.css" />
+</head>
+<body>
+
+  <!-- Public Registration View -->
+  <div id="public-view" class="view-container">
+    
+    <!-- Top Mobile App Header -->
+    <header class="app-header-bar">
+      <div class="app-brand">
+        <svg class="flag-icon" viewBox="0 0 100 60" width="32" height="20">
+          <rect width="100" height="60" fill="#008037"/>
+          <circle cx="28" cy="30" r="14" fill="#FFFFFF"/>
+          <circle cx="32" cy="30" r="12" fill="#008037"/>
+          <polygon points="40,22 42,28 48,28 43,32 45,38 40,34 35,38 37,32 32,28 38,28" fill="#FFFFFF"/>
+        </svg>
+        <div class="app-brand-text">
+          <span class="app-title">MSF തീക്കുനി ശാഖ</span>
+          <span class="app-subtitle">വേളം പഞ്ചായത്ത് കമ്മിറ്റി</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mobile Hero Banner -->
+    <section class="mobile-hero">
+      <div class="hero-glow-bg"></div>
+      
+      <div class="badge-row">
+        <span class="mini-badge orange">നോക്യോക്ക്</span>
+        <span class="mini-badge gold">ശാഖാ സമ്മേളനം</span>
+      </div>
+
+      <div class="hero-eye-logo">
+        <svg class="pulse-eye" viewBox="0 0 120 120" width="70" height="70">
+          <circle cx="60" cy="60" r="55" fill="#F24E1E" />
+          <path d="M 18 60 Q 60 18 102 60 Q 60 102 18 60 Z" fill="#FFFFFF"/>
+          <circle cx="60" cy="60" r="22" fill="#008037"/>
+          <circle cx="60" cy="60" r="9" fill="#FFFFFF"/>
+        </svg>
+      </div>
+
+      <h1 class="hero-main-heading">നോക്യോക്ക്</h1>
+      <h2 class="hero-sub-heading">തീക്കുനി ശാഖാ സമ്മേളനം</h2>
+
+      <!-- Widget Countdown -->
+      <div class="widget-countdown">
+        <div class="timer-chip">
+          <span id="cd-days" class="timer-num">00</span>
+          <span class="timer-lbl">DAYS</span>
+        </div>
+        <div class="timer-chip">
+          <span id="cd-hours" class="timer-num">00</span>
+          <span class="timer-lbl">HRS</span>
+        </div>
+        <div class="timer-chip">
+          <span id="cd-mins" class="timer-num">00</span>
+          <span class="timer-lbl">MINS</span>
+        </div>
+        <div class="timer-chip">
+          <span id="cd-secs" class="timer-num">00</span>
+          <span class="timer-lbl">SECS</span>
+        </div>
+      </div>
+
+      <!-- Auto Scroll to Form Button -->
+      <div style="margin-top: 18px;">
+        <button id="scroll-to-form-btn" class="hero-scroll-btn">
+          ✍️ രജിസ്റ്റർ ചെയ്യാം ↓
+        </button>
+      </div>
+    </section>
+
+    <!-- Mobile App Content -->
+    <main class="mobile-app-content">
+
+      <!-- Official Program Poster Card -->
+      <div class="poster-preview-card">
+        <div class="poster-img-wrapper" id="open-poster-btn">
+          <img src="/poster.jpg" alt="MSF നോക്യോക്ക് തീക്കുനി ശാഖാ സമ്മേളന പോസ്റ്റർ" class="poster-thumb-img" />
+          <div class="poster-overlay-badge">
+            <span>🖼️ പോസ്റ്റർ വലുതായി കാണാൻ ടാപ്പ് ചെയ്യുക</span>
+          </div>
+        </div>
+        <div class="poster-tagline-box">
+          <p class="tagline-main">"സമൂഹത്തിനൊപ്പം... മാറ്റത്തിനായി..."</p>
+          <p class="tagline-sub">വിദ്യ, വിവേകം, സമൂഹ നന്മയ്ക്കായി</p>
+        </div>
+      </div>
+
+      <!-- Registration Form Card -->
+      <div class="mobile-card" id="registration-form-section">
+        <div class="form-title-bar">
+          <h3>📝 പ്രതിനിധി രജിസ്ട്രേഷൻ</h3>
+          <span class="req-notice">* നിർബന്ധമാണ്</span>
+        </div>
+
+        <form id="delegate-registration-form" novalidate>
+          
+          <!-- Personal Info -->
+          <div class="section-divider">👤 വ്യക്തിഗത വിവരങ്ങൾ</div>
+          <div class="form-grid-mobile">
+            
+            <div class="form-field">
+              <label for="name">പൂർണ്ണ നാമം <span class="req">*</span></label>
+              <input type="text" id="name" class="mobile-input" placeholder="പേര് നൽകുക" required />
+            </div>
+
+            <div class="form-field">
+              <label for="dob">ജനന തീയതി / വയസ്സ് <span class="req">*</span></label>
+              <input type="text" id="dob" class="mobile-input" placeholder="ഉദാ: 18 വയസ്സ് / 05/10/2007" required />
+            </div>
+
+            <div class="form-field">
+              <label>Gender <span class="req">*</span></label>
+              <div class="mobile-radio-flex">
+                <label class="radio-chip">
+                  <input type="radio" name="gender" value="ആൺ (Male)" checked />
+                  <span>ആൺ (Male)</span>
+                </label>
+                <label class="radio-chip">
+                  <input type="radio" name="gender" value="പെൺ (Female)" />
+                  <span>പെൺ (Female)</span>
+                </label>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Academic Info -->
+          <div class="section-divider">🎓 പഠന വിവരങ്ങൾ</div>
+          <div class="form-grid-mobile">
+            
+            <div class="form-field">
+              <label for="educationClass">ക്ലാസ്സ് / കോഴ്സ് <span class="req">*</span></label>
+              <select id="educationClass" class="mobile-input" required>
+                <option value="">-- തിരെഞ്ഞെടുക്കുക --</option>
+                <option value="High School (8-10)">High School (8, 9, 10)</option>
+                <option value="Plus One / Plus Two">Plus One / Plus Two</option>
+                <option value="Degree / UG">Degree / UG</option>
+                <option value="PG / Post Graduation">PG / Post Graduation</option>
+                <option value="Diploma / ITI">Diploma / ITI</option>
+                <option value="മറ്റുള്ളവ (Other)">മറ്റുള്ളവ (Other)</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="institution">സ്കൂൾ / കോളേജ് പേര് <span class="req">*</span></label>
+              <input type="text" id="institution" class="mobile-input" placeholder="പഠിക്കുന്ന സ്ഥാപനം" required />
+            </div>
+
+          </div>
+
+          <!-- Contact Info -->
+          <div class="section-divider">📞 ബന്ധപ്പെടാനുള്ള വിവരങ്ങൾ</div>
+          <div class="form-grid-mobile">
+            
+            <div class="form-field">
+              <label for="mobile">മൊബൈൽ (WhatsApp) <span class="req">*</span></label>
+              <input type="tel" id="mobile" class="mobile-input" placeholder="10 അക്ക മൊബൈൽ നമ്പർ" maxlength="10" required />
+            </div>
+
+            <div class="form-field">
+              <label for="email">ഈമെയിൽ (Optional)</label>
+              <input type="email" id="email" class="mobile-input" placeholder="name@gmail.com" />
+            </div>
+
+            <div class="form-field">
+              <label for="address">മേൽവിലാസം / സ്ഥലം <span class="req">*</span></label>
+              <input type="text" id="address" class="mobile-input" placeholder="വീട്ടുപേരും സ്ഥലവും" required />
+            </div>
+
+            <div class="form-field">
+              <label for="guardianName">രക്ഷിതാവിന്റെ പേര് <span class="req">*</span></label>
+              <input type="text" id="guardianName" class="mobile-input" placeholder="Guardian Name" required />
+            </div>
+
+            <div class="form-field">
+              <label for="guardianMobile">രക്ഷിതാവിന്റെ ഫോൺ <span class="req">*</span></label>
+              <input type="tel" id="guardianMobile" class="mobile-input" placeholder="Guardian Mobile Number" maxlength="10" required />
+            </div>
+
+          </div>
+
+          <button type="submit" id="submit-reg-btn" class="big-submit-btn">
+            ✨ രജിസ്റ്റർ ചെയ്യുക (Submit)
+          </button>
+
+        </form>
+      </div>
+    </main>
+
+    <!-- Mobile Footer -->
+    <footer class="mobile-footer">
+      <p>© 2026 MSF വേളം പഞ്ചായത്ത് | തീക്കുനി ശാഖാ സമ്മേളനം</p>
+      <p style="margin-top:4px; opacity:0.85;">📞 Helpline: +91 97464 37858</p>
+    </footer>
+  </div>
+
+  <!-- Dedicated Mobile Admin Full Page -->
+  <div id="admin-view" class="view-container hidden"></div>
+
+  <!-- Digital Delegate Pass Modal -->
+  <div id="pass-modal" class="modal-overlay hidden">
+    <div class="modal-dialog-card">
+      <div id="pass-card-render-container"></div>
+      
+      <div class="modal-actions-flex">
+        <button id="download-pass-btn" class="btn btn-primary">
+          📥 Digital Pass ഡൗൺലോഡ് (PNG)
+        </button>
+        <button id="share-pass-btn" class="btn btn-success">
+          💬 WhatsApp ഷെയർ
+        </button>
+        <button id="close-pass-modal-btn" class="btn btn-secondary">
+          ❌ അടയ്ക്കുക
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Full Screen Poster Lightbox Modal -->
+  <div id="poster-modal" class="modal-overlay hidden">
+    <div class="modal-dialog-card poster-lightbox-dialog">
+      <div class="poster-modal-header">
+        <span class="poster-modal-title">🖼️ ഒഫീഷ്യൽ പ്രോഗ്രാം പോസ്റ്റർ</span>
+        <button id="close-poster-modal-btn" class="close-lightbox-btn">❌ അടയ്ക്കുക</button>
+      </div>
+      <img src="/poster.jpg" alt="Official Event Poster" class="full-poster-img" />
+    </div>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
