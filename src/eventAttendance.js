@@ -5,6 +5,7 @@ import { updateAttendanceStatus } from './firebase.js';
 let html5QrcodeScanner = null;
 let isScanning = false;
 let currentAttendanceFilter = 'all'; // 'all', 'present', 'absent'
+let popupTimer = null;
 
 export function renderEventAttendancePage(containerElement, allRegistrations, backToDashboardCallback) {
   let registrations = [...allRegistrations];
@@ -91,7 +92,7 @@ export function renderEventAttendancePage(containerElement, allRegistrations, ba
                 <input type="text" id="pass-code-input" class="mobile-input pass-code-input" placeholder="e.g. TK-NKY-1234 അല്ലെങ്കിൽ 1234" autofocus autocomplete="off" />
                 <button type="submit" class="btn btn-primary btn-mark-pass">✅ Mark Present</button>
               </div>
-              <p class="pass-hint">💡 digital pass-ൽ ഉള്ള Reg ID ടൈപ്പ് ചെയ്ത് Enter അമർത്തുക.</p>
+              <p class="pass-hint">💡 Digital pass-ൽ ഉള്ള Reg ID ടൈപ്പ് ചെയ്ത് Enter അമർത്തുക.</p>
             </form>
           </div>
 
@@ -99,6 +100,20 @@ export function renderEventAttendancePage(containerElement, allRegistrations, ba
           <div id="attn-mode-qr-container" class="attn-mode-panel hidden">
             <div class="qr-scanner-box">
               <div id="qr-reader-view" class="qr-reader-element"></div>
+              
+              <!-- Camera Permission Guide Box (Shown when denied) -->
+              <div id="cam-perm-error-box" class="cam-perm-box hidden">
+                <div class="cam-perm-icon">📷🔒</div>
+                <h4>ക്യാമറ അനുമതി അനുവദിച്ചിട്ടില്ല</h4>
+                <p>ബ്രൗസറിൽ ക്യാമറ പെർമിഷൻ നൽകാത്തതിനാലാണ് ക്ലോസ് ആയത്. അനുമതി നൽകാൻ താഴെ പറയുന്നവ ചെയ്യുക:</p>
+                <ol class="cam-perm-steps">
+                  <li>മുകളിൽ അഡ്രസ് ബാറിലെ <strong>🔒 (Lock icon)</strong> അമർത്തുക.</li>
+                  <li><strong>Camera Access</strong> ഓൺ / Allow (അനുവദിക്കുക) എന്ന് നൽകുക.</li>
+                  <li>താഴെയുള്ള ബട്ടൺ അമർത്തി വീണ്ടും സ്റ്റാർട്ട് ചെയ്യുക.</li>
+                </ol>
+                <button id="retry-cam-perm-btn" class="btn btn-primary btn-sm">🔄 വീണ്ടും ക്യാമറ ശ്രമിക്കുക</button>
+              </div>
+
               <div class="qr-controls">
                 <button id="toggle-qr-cam-btn" class="btn btn-primary">📷 ക്യാമറ സ്റ്റാർട്ട് ചെയ്യുക</button>
                 <p class="qr-instruction">ഡിജിറ്റൽ പാസ്സിലെ QR Code ക്യാമറയ്ക്ക് നേരെ കാണിക്കുക.</p>
@@ -126,6 +141,22 @@ export function renderEventAttendancePage(containerElement, allRegistrations, ba
         <div id="attn-delegates-list" class="attn-delegates-list"></div>
 
       </main>
+
+      <!-- Success Modal Toast Card -->
+      <div id="attn-success-popup" class="attn-popup-overlay hidden">
+        <div class="attn-popup-card">
+          <div class="attn-popup-icon-circle">🎉</div>
+          <div class="attn-popup-badge">✅ ഹാജർ വിജയകരമായി രേഖപ്പെടുത്തി!</div>
+          <h2 id="popup-delegate-name" class="attn-popup-title">പ്രതിനിധി പേര്</h2>
+          <div id="popup-delegate-id" class="attn-popup-reg-id">TK-NKY-0000</div>
+          <div class="attn-popup-meta">
+            <span id="popup-delegate-class">🎓 -</span>
+            <span id="popup-delegate-inst">🏫 -</span>
+          </div>
+          <button id="popup-close-btn" class="btn btn-primary btn-popup-close">👍 ശരി (OK)</button>
+        </div>
+      </div>
+
     </div>
   `;
 
@@ -145,8 +176,18 @@ export function renderEventAttendancePage(containerElement, allRegistrations, ba
   const passCodeForm = document.getElementById('pass-code-form');
   const passCodeInput = document.getElementById('pass-code-input');
   const toggleQrCamBtn = document.getElementById('toggle-qr-cam-btn');
+  const camPermErrorBox = document.getElementById('cam-perm-error-box');
+  const retryCamPermBtn = document.getElementById('retry-cam-perm-btn');
   const attnSearchInput = document.getElementById('attn-search-input');
   const delegatesListContainer = document.getElementById('attn-delegates-list');
+
+  const successPopup = document.getElementById('attn-success-popup');
+  const popupCloseBtn = document.getElementById('popup-close-btn');
+
+  // Popup close listener
+  popupCloseBtn.addEventListener('click', () => {
+    successPopup.classList.add('hidden');
+  });
 
   // Tab Switcher Logic
   const switchTab = (activeTab, showContainer) => {
@@ -164,6 +205,44 @@ export function renderEventAttendancePage(containerElement, allRegistrations, ba
   tabPassCode.addEventListener('click', () => switchTab(tabPassCode, modePassContainer));
   tabQrScan.addEventListener('click', () => switchTab(tabQrScan, modeQrContainer));
   tabSearchFind.addEventListener('click', () => switchTab(tabSearchFind, modeSearchContainer));
+
+  // Sound & Vibration Feedback
+  const playScanSuccessAudio = () => {
+    try {
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5
+      osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.15); // A5
+      gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.3);
+    } catch (e) {}
+
+    if (navigator.vibrate) {
+      try { navigator.vibrate([100, 50, 100]); } catch (e) {}
+    }
+  };
+
+  // Show Success Popup Toast
+  const triggerSuccessPopup = (delegate) => {
+    playScanSuccessAudio();
+    document.getElementById('popup-delegate-name').innerText = delegate.name || 'പ്രതിനിധി';
+    document.getElementById('popup-delegate-id').innerText = delegate.regId || '-';
+    document.getElementById('popup-delegate-class').innerText = `🎓 ${delegate.educationClass || '-'}`;
+    document.getElementById('popup-delegate-inst').innerText = `🏫 ${delegate.institution || '-'}`;
+
+    successPopup.classList.remove('hidden');
+
+    if (popupTimer) clearTimeout(popupTimer);
+    popupTimer = setTimeout(() => {
+      successPopup.classList.add('hidden');
+    }, 3500);
+  };
 
   // Alert Banner Helper
   const showAlert = (message, type = 'success') => {
@@ -214,6 +293,7 @@ export function renderEventAttendancePage(containerElement, allRegistrations, ba
       showAlert(`ℹ️ <strong>${matched.name}</strong> (${matched.regId}) നേരത്തെ തന്നെ ഹാജർ രേഖപ്പെടുത്തിയതാണ്.`, 'info');
     } else {
       await markDelegateAttendance(matched.id, true);
+      triggerSuccessPopup(matched);
       showAlert(`🎉 ✅ <strong>${matched.name}</strong> (${matched.regId}) - ഹാജർ വിജയകരമായി രേഖപ്പെടുത്തി!`, 'success');
     }
 
@@ -228,6 +308,7 @@ export function renderEventAttendancePage(containerElement, allRegistrations, ba
 
   // QR Scanner Logic using Html5Qrcode
   const startQrScanner = async () => {
+    camPermErrorBox.classList.add('hidden');
     try {
       if (!html5QrcodeScanner) {
         html5QrcodeScanner = new Html5Qrcode('qr-reader-view');
@@ -256,7 +337,8 @@ export function renderEventAttendancePage(containerElement, allRegistrations, ba
       toggleQrCamBtn.className = 'btn btn-danger';
     } catch (err) {
       console.error('QR Scanner error:', err);
-      showAlert('❌ ക്യാമറ പ്രവർത്തിപ്പിക്കുന്നതിൽ തടസ്സം നേരിട്ടു. ക്യാമറ പെർമിഷൻ അനുവദിച്ച് നൽകുക.', 'error');
+      camPermErrorBox.classList.remove('hidden');
+      showAlert('❌ ക്യാമറ പ്രവർത്തിപ്പിക്കാൻ അനുമതി ലഭിച്ചില്ല. ദയവായി Camera Permission അനുവദിക്കുക.', 'error');
     }
   };
 
@@ -279,6 +361,10 @@ export function renderEventAttendancePage(containerElement, allRegistrations, ba
     } else {
       startQrScanner();
     }
+  });
+
+  retryCamPermBtn.addEventListener('click', () => {
+    startQrScanner();
   });
 
   // Filter Buttons Handler
@@ -324,12 +410,19 @@ export function renderEventAttendancePage(containerElement, allRegistrations, ba
     delegatesListContainer.innerHTML = filtered.map(item => `
       <div class="attn-item-card ${item.attended ? 'is-present' : 'is-absent'}">
         <div class="attn-card-top">
-          <div class="attn-reg-badge">${item.regId || '-'}</div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <div class="attn-avatar-circle ${item.attended ? 'avatar-present' : 'avatar-absent'}">
+              ${item.name ? item.name.charAt(0).toUpperCase() : 'M'}
+            </div>
+            <div>
+              <div class="attn-delegate-name">${item.name || '-'}</div>
+              <div class="attn-reg-badge">${item.regId || '-'}</div>
+            </div>
+          </div>
           <div class="attn-status-pill ${item.attended ? 'pill-present' : 'pill-absent'}">
-            ${item.attended ? '✅ ഹാജർ (Present)' : '⏳ ഹാജരായിട്ടില്ല'}
+            ${item.attended ? '✅ Present' : '⏳ Absent'}
           </div>
         </div>
-        <div class="attn-delegate-name">${item.name || '-'}</div>
         <div class="attn-meta-grid">
           <span>🎓 ${item.educationClass || '-'}</span>
           <span>🏫 ${item.institution || '-'}</span>
@@ -352,6 +445,7 @@ export function renderEventAttendancePage(containerElement, allRegistrations, ba
         const id = b.getAttribute('data-id');
         const item = await markDelegateAttendance(id, true);
         if (item) {
+          triggerSuccessPopup(item);
           showAlert(`✅ <strong>${item.name}</strong> ഹാജർ രേഖപ്പെടുത്തി!`, 'success');
         }
       });

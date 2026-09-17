@@ -1411,4 +1411,144 @@ select.mobile-input {
   color: var(--text-muted);
 }
 
+/* Avatar Circle styling in Attendance Cards */
+.attn-avatar-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 1.1rem;
+  color: white;
+  flex-shrink: 0;
+}
+.avatar-present { background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%); }
+.avatar-absent { background: linear-gradient(135deg, #ef6c00 0%, #e65100 100%); }
+
+/* Camera Permission Guide Box */
+.cam-perm-box {
+  background: #fff8e1;
+  border: 1.8px dashed #ffa000;
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 12px;
+  text-align: left;
+}
+
+.cam-perm-icon {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.cam-perm-box h4 {
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: #e65100;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.cam-perm-box p {
+  font-size: 0.82rem;
+  color: #5d4037;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.cam-perm-steps {
+  font-size: 0.8rem;
+  color: #4e342e;
+  padding-left: 20px;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+/* Attendance Success Popup Toast Modal */
+.attn-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.25s ease;
+}
+
+.attn-popup-card {
+  background: white;
+  border-radius: 20px;
+  padding: 24px 20px;
+  width: 100%;
+  max-width: 340px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  border: 3px solid #25D366;
+  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.7); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.attn-popup-icon-circle {
+  font-size: 2.8rem;
+  margin-bottom: 8px;
+}
+
+.attn-popup-badge {
+  display: inline-block;
+  background: #e8f5e9;
+  color: #2e7d32;
+  font-size: 0.8rem;
+  font-weight: 900;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.attn-popup-title {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+}
+
+.attn-popup-reg-id {
+  font-size: 0.9rem;
+  font-weight: 900;
+  color: var(--msf-green-dark);
+  background: #f0f7f2;
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.attn-popup-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.btn-popup-close {
+  width: 100%;
+  padding: 11px;
+  font-size: 0.95rem;
+}
+
+
 
