@@ -1035,3 +1035,28 @@ select.mobile-input {
   font-size: 0.78rem;
   border-top: 2.5px solid var(--accent-gold);
 }
+
+/* Simple Admin Data Loader Spinner */
+.admin-loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  width: 100%;
+}
+
+.admin-spinner {
+  width: 38px;
+  height: 38px;
+  border: 3.5px solid rgba(0, 128, 55, 0.15);
+  border-top-color: var(--msf-green);
+  border-radius: 50%;
+  animation: admin-spin 0.75s linear infinite;
+}
+
+@keyframes admin-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+

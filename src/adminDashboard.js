@@ -159,7 +159,7 @@ export function initAdminDashboardPage(containerElement, openPassModalCallback, 
 
           <!-- Mobile Card List View -->
           <div id="mobile-cards-container" class="delegate-cards-list">
-            <div style="text-align:center; padding:20px; color:var(--text-muted);">വിവരങ്ങൾ തത്സമയം നിരീക്ഷിക്കുന്നു (Live Realtime)...</div>
+            <div class="admin-loader-container"><div class="admin-spinner"></div></div>
           </div>
 
           <!-- Desktop Table View -->
@@ -178,7 +178,9 @@ export function initAdminDashboardPage(containerElement, openPassModalCallback, 
                   <th>നടപടികൾ</th>
                 </tr>
               </thead>
-              <tbody id="table-body"></tbody>
+              <tbody id="table-body">
+                <tr><td colspan="9" style="text-align:center;"><div class="admin-loader-container"><div class="admin-spinner"></div></div></td></tr>
+              </tbody>
             </table>
           </div>
 
